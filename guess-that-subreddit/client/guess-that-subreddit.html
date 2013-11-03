@@ -1,0 +1,55 @@
+<head>
+  <title>Guess that Subreddit</title>
+</head>
+
+<body>
+  {{> page}}
+</body>
+
+<template name="page">
+  <h1>Guess that Subreddit</h1>
+  <!--{{play}}
+  <input type="button" value="play"/>-->
+  {{> details}}
+  {{> mainFrame}}
+</template>
+
+<template name="details">
+  <div class="details">
+    <!--contains navigators and score-->
+    {{> score}}
+    {{> navigators}}
+  </div>
+</template>
+
+<template name="score">
+  <div class="score">
+    {{player_score}}
+  </div>
+</template>
+
+
+<template name="navigators">
+  <div class="navs">
+    <div id="next"><button id="next-button">Next Question</button></div>
+  </div>
+</template>
+
+<template name = "mainFrame">
+  <div class="mainFrame">
+    {{> questionData}}
+    {{> question}}
+  </div>
+</template>
+
+<template name ="questionData_template">
+<div class="questionData">
+  {{questionData}}
+</div>
+</template>
+
+<template name="question_template">
+<div class="question">
+  {{question}}
+  </div>
+</template>
