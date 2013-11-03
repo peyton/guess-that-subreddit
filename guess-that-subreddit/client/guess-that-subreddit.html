@@ -1,5 +1,6 @@
 <head>
   <title>Guess that Subreddit</title>
+  <link rel="stylesheet" href="dist/css/bootstrap.min.css">
 </head>
 
 <body>
@@ -7,18 +8,28 @@
 </body>
 
 <template name="page">
-  <h1>Guess that Subreddit</h1>
   <!--{{play}}
   <input type="button" value="play"/>-->
-  {{> details}}
-  {{> mainFrame}}
+  <div class="row">
+    <div class="col-md-4">
+      {{> details}}
+    </div>
+    <div class="col-md-8">
+      <h1>Guess that Subreddit</h1>
+      {{> mainFrame}}
+    </div>
+  </div>
 </template>
 
 <template name="details">
   <div class="details">
     <!--contains navigators and score-->
-    {{> score}}
-    {{> navigators}}
+    <div class="row">
+      {{> score}}
+    </div>
+    <div class="row">
+      {{> navigators}}
+    </div>
   </div>
 </template>
 
@@ -31,25 +42,53 @@
 
 <template name="navigators">
   <div class="navs">
-    <div id="next"><button id="next-button">Next Question</button></div>
+    <div id="next">
+      <button type="button" class="btn btn-default" id="next-button">
+        Next Question
+      </button>
+    </div>
   </div>
 </template>
 
 <template name = "mainFrame">
   <div class="mainFrame">
-    {{> questionData}}
-    {{> question}}
+    {{> questionData_template}}
+    {{> question_template}}
   </div>
 </template>
 
 <template name ="questionData_template">
-<div class="questionData">
-  {{questionData}}
-</div>
+  <div class="questionData">
+    {{questionData}}
+  </div>
 </template>
 
 <template name="question_template">
-<div class="question">
-  {{question}}
+  <div class="question">
+    {{question}}
+    <div class="radio">
+      <label>
+        <input type="radio" name="question_radio" id="option1" value="option1">
+        {{option1}}
+      </label>
+    </div>
+    <div class="radio">
+      <label>
+        <input type="radio" name="question_radio" id="option2" value="option2">
+        {{option2}}
+      </label>
+    </div>
+    <div class="radio">
+      <label>
+        <input type="radio" name="question_radio" id="option3" value="option3">
+        {{option3}}
+      </label>
+    </div>
+    <div class="radio">
+      <label>
+        <input type="radio" name="question_radio" id="option4" value="option4">
+        {{option4}}
+      </label>
+    </div>
   </div>
 </template>
