@@ -1,5 +1,5 @@
 if (Meteor.isClient) {
-  var score = 0;
+  Session.setDefault("score",0);
   var answersArr=[];
 
 
@@ -7,6 +7,12 @@ if (Meteor.isClient) {
     //generate Answers array based on given question
     answersArr=["A","B","C","D"];
   }
+  
+  var evaluateQuestion = function(userAnswer){
+    //evaluates whether user got question correct based
+    //on their given answer
+    return true;
+  };
 
   generateAnswersArr();
 
@@ -33,13 +39,30 @@ if (Meteor.isClient) {
       //check whether the question is right or not
       //add to score if correct and get next question
       //render the next question
+      
+      //grab user answer
+      var userAnswer = $("input:radio[name=question_radio]:checked").val();
+      console.log(userAnswer);
+
+      if(userAnswer!==undefined){
+        //evaluate question
+        var correct = evaluateQuestion(userAnswer);
+        //give points based on correct or incorrect answer
+        if(correct)
+          Session.set("score",Session.get("score")+1);
+        //TODO-give user some indication that they are right
+        
+        //then load next question
+        loadNextQuestion();
+      }
+
 
     }
   });
 
   Template.score.player_score = function(){
     //score calculating logic
-    return score;
+    return Session.get("score");
   };
 
   Template.question_template.question = function(){
@@ -68,11 +91,7 @@ if (Meteor.isClient) {
     return "0";
   };
 
-  var evaluateQuestion = function(userAnswer){
-    //evaluates whether user got question correct based
-    //on their given answer
-    return true;
-  };
+
 
 }
 
