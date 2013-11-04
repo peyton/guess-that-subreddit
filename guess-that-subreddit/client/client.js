@@ -6,12 +6,16 @@ if (Meteor.isClient) {
   var generateAnswersArr = function () {
     //generate Answers array based on given question
     answersArr=["A","B","C","D"];
-  }
+  };
   
   var evaluateQuestion = function(userAnswer){
     //evaluates whether user got question correct based
     //on their given answer
     return true;
+  };
+
+  var loadNextQuestion = function(){
+    
   };
 
   generateAnswersArr();
