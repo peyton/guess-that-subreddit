@@ -11,12 +11,12 @@
   <!--{{play}}
   <input type="button" value="play"/>-->
   <div class="row">
-    <div class="col-md-4">
-      {{> details}}
-    </div>
     <div class="col-md-8">
       <h1>Guess that Subreddit</h1>
       {{> mainFrame}}
+    </div>
+    <div class="col-md-4">
+      {{> details}}
     </div>
   </div>
 </template>
@@ -31,7 +31,8 @@
 
 <template name="score">
   <div class="score">
-    {{player_score}}
+    <h2>Score:
+      {{player_score}} out of {{total_questions}}</h2>
   </div>
 </template>
 
@@ -39,9 +40,9 @@
 <template name="navigators">
   <div class="navs">
     <div id="next">
-      <button type="button" class="btn btn-default" id="next-button">
-        Next Question
-      </button>
+      <a href="{{sub_url}}" target="_blank" role="button" class="btn btn-info" id="go-to-subreddit">
+        Go To Subreddit
+      </a>
     </div>
   </div>
 </template>
@@ -62,29 +63,19 @@
 <template name="question_template">
   <div class="question">
     {{question}}
-    <div class="radio">
-      <label>
-        <input type="radio" name="question_radio" id="option1" value="{{option1}}">
+    <div class="answers">
+      <a href="#" role="button" class="btn btn-default" id="option1" value="{{option1}}">
         {{option1}}
-      </label>
-    </div>
-    <div class="radio">
-      <label>
-        <input type="radio" name="question_radio" id="option2" value="{{option2}}">
+      </a>
+      <a href="#" role="button" class="btn btn-default" id="option2" value="{{option2}}">
         {{option2}}
-      </label>
-    </div>
-    <div class="radio">
-      <label>
-        <input type="radio" name="question_radio" id="option3" value="{{option3}}">
+      </a>
+      <a href="#" role="button" class="btn btn-default" id="option3" value="{{option3}}">
         {{option3}}
-      </label>
-    </div>
-    <div class="radio">
-      <label>
-        <input type="radio" name="question_radio" id="option4" value="{{option4}}">
+      </a>
+      <a href="#" role="button" class="btn btn-default" id="option4" value="{{option4}}">
         {{option4}}
-      </label>
+      </a>
     </div>
-  </div>
+   </div>
 </template>
