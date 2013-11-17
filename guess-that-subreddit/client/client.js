@@ -1,4 +1,11 @@
+var Subreddits;
+var Submissions;
 if (Meteor.isClient) {
+  Meteor.subscribe("submissions");
+  Meteor.subscribe("subreddits");
+  Subreddits = new Meteor.Collection("subreddits");
+  Submissions = new Meteor.Collection("submissions");
+
   Session.setDefault("score",0);
   Session.setDefault("totalQuestions",0);
   Session.setDefault("sub_url","http://www.reddit.com/r/animalsbeingjerks");
@@ -131,7 +138,8 @@ if (Meteor.isClient) {
 
   Template.questionData_template.questionData = function() {
     //grab question and display it
-    return "The cat was hot in the sun";
+    console.log(Submissions.findOne());
+    return Submissions.findOne();
   };
 
   Template.navigators.sub_url = function(){
@@ -141,9 +149,3 @@ if (Meteor.isClient) {
 
 }
 
-if (Meteor.isServer) {
-  Meteor.startup(function () {
-    // code to run on server at startup
-
-  });
-}
