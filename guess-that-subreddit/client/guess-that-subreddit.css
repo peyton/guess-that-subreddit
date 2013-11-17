@@ -1,1 +1,33 @@
 /* CSS declarations go here */
+h1 {
+  text-align: center;
+  font-family: verdana, arial, helvetica, sans-serif;
+  /*background-color: #cee3f8;*/
+}
+
+h3 {
+  text-align: center;
+  font-family: verdana, arial, helvetica, sans-serif;
+}
+
+.mainFrame {
+  margin-top: 10%;
+  font-family: verdana, arial, helvetica, sans-serif;
+  text-align: center;
+}
+
+.details {
+  margin-top: 10%;
+  font-family: verdana, arial, helvetica, sans-serif;
+  text-align: center;
+}
+
+.questionData {
+  background-color: #F0F3FC;
+  display: block;
+  font-family: verdana, arial, helvetica, sans-serif;
+  font-style: normal;
+  width: 50%;
+  margin: 0 auto;
+  
+}
