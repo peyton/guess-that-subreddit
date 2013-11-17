@@ -53,6 +53,18 @@ def write_dicts(filename, dicts, keys):
         writer.writeheader()
         writer.writerows(dicts)
 
+def read_dicts(filename, keys):
+    with open(filename, 'rb') as f:
+        reader = csv.DictReader(f, delimiter='\t', fieldnames=keys)
+        reader.next()
+        return list(reader)
+
+def read_submissions():
+    return read_dicts('submissions.csv', keypaths_to_keys(submission_keypaths))
+
+def read_subreddits():
+    return read_dicts('subreddits.csv', keypaths_to_keys(subreddit_keypaths))
+
 if __name__ == '__main__':
     r = praw.Reddit(user_agent='420blazeit')
 
