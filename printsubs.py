@@ -3,11 +3,11 @@ import pymongo
 from pymongo import MongoClient
 
 client = MongoClient()
-db = client.gtsdb
-sreddits = db.submissions
+db = client.meteor
+sreddits = db.subreddits
 
 def printsubs():
-  slist = scrape.read_submissions()
+  slist = scrape.read_subreddits()
   sreddits.insert(slist)
   #print slist
 
