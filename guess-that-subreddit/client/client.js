@@ -1,28 +1,66 @@
 var Subreddits;
 var Submissions;
-if (Meteor.isClient) {
-  Meteor.subscribe("submissions");
-  Meteor.subscribe("subreddits");
-  Subreddits = new Meteor.Collection("subreddits");
-  Submissions = new Meteor.Collection("submissions");
+function shuffle(o){ //v1.0
+  for(var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
+  return o;
+};
+if(Meteor.isClient){
 
   Session.setDefault("score",0);
   Session.setDefault("totalQuestions",0);
   Session.setDefault("sub_url","http://www.reddit.com/r/animalsbeingjerks");
+  Session.setDefault("option1","Loading");
+  Session.setDefault("option2","Loading");
+  Session.setDefault("option3","Loading");
+  Session.setDefault("option4","Loading");
+  Session.setDefault("question",{});
+  Session.setDefault("correctAnswer", "null");
   var answersArr=[];
   var correctAnswer="";
+  var flag=false;
 
 
+  
   var generateAnswersArr = function () {
-    //generate Answers array based on given question
-    answersArr=["A","B","C","D"];
-    correctAnswer = '#option'+(Math.floor(Math.random()*4)+1);
+    Meteor.call('getThreeSubreddits', function(err,result){
+      var tmp =[];
+      for(var i = 0;i<3;i++){
+        tmp.push(result[i][0].display_name);
+      }
+      answersArr=tmp;
+      Meteor.call('getSubredditById',Session.get("question").subreddit_id ,function(err, result){
+        console.log(result);
+        answersArr.push(result.display_name);
+        Session.set("correctAnswer",result.display_name);
+        Session.set("sub_url", "http://reddit.com"+result.url);
+        shuffle(answersArr);
+        Session.set("option1",answersArr[0]);
+        Session.set("option2",answersArr[1]);
+        Session.set("option3",answersArr[2]);
+        Session.set("option4",answersArr[3]);
+      console.log(answersArr);
+      });
+
+    });
+    console.log(answersArr);
   };
   
+
+  var generateQuestion = function(){
+    Meteor.call('getNextThread', function(err,result){
+      var tmp = result;
+      console.log(result);
+      Session.set("question",result[0]);
+      console.log();
+    });
+  }
+
+
   var evaluateQuestion = function(userAnswer){
     //evaluates whether user got question correct based
     //on their given answer
-    return $(correctAnswer).text().trim()==userAnswer;
+    console.log(userAnswer);
+    return Session.get("correctAnswer")===userAnswer;
   };
 
   var indicateCorrect = function(correct, userAnswer){
@@ -47,10 +85,10 @@ if (Meteor.isClient) {
         $(".answers").children().addClass("btn-default");
       },500);
     //get new question
-
+    generateQuestion();
+        
     //generate new answers
     generateAnswersArr();
-    Session.set("sub_url","http://www.reddit.com/r/funny");
   };
 
   var handleClick = function(i){
@@ -73,7 +111,7 @@ if (Meteor.isClient) {
     //set go-to button to new href
   };
 
-  generateAnswersArr();
+
 
   /*------Template handlers------*/
 
@@ -121,31 +159,40 @@ if (Meteor.isClient) {
   };
 
   Template.question_template.option1 = function(){
-    return answersArr[0];
+    return Session.get("option1"); 
   }
   
   Template.question_template.option2 = function(){
-    return answersArr[1];
+    return Session.get("option2"); 
   }
 
   Template.question_template.option3 = function(){
-    return answersArr[2];
+    return Session.get("option3"); 
   }
 
   Template.question_template.option4 = function(){
-    return answersArr[3];
+    return Session.get("option4"); 
   }
 
   Template.questionData_template.questionData = function() {
     //grab question and display it
-    console.log(Submissions.findOne());
-    return Submissions.findOne();
+    //console.log(Subreddits.find().fetch());
+
+    return Session.get("question").title;
   };
 
   Template.navigators.sub_url = function(){
     return Session.get("sub_url");
   };
-
+  
+  Meteor.startup(function(){
+    generateQuestion();
+    generateAnswersArr();
+    Meteor.subscribe("submissions");
+    Meteor.subscribe("subreddits");
+    Subreddits = new Meteor.Collection("subreddits");
+    Submissions = new Meteor.Collection("submissions");
+  });
 
 }
 
