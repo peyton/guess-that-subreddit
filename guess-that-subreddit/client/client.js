@@ -19,7 +19,7 @@ if(Meteor.isClient){
   var flag=false;
 
 
-  
+
   var generateAnswersArr = function () {
     Meteor.call('getThreeSubreddits', function(err,result){
       var tmp =[];
@@ -178,20 +178,19 @@ if(Meteor.isClient){
 
   Template.questionData_template.questionData = function() {
     //grab question and display it
-    //console.log(Subreddits.find().fetch());
-    console.log(Session.get("question").thumbnail);
-    //if(Session.get("question").thumbnail !== "" ||
-      // Session.get("question").thumbnail !== "self"){
      $("<img src='"+Session.get("question").thumbnail+"' width='70' height='52' alt>").load(function(){
         $(this).appendTo("#thumb");
      });
-  //}
     return Session.get("question").title;
   };
   
 
   Template.navigators.sub_url = function(){
     return Session.get("sub_url");
+  };
+  
+  Template.navigators.post_url = function(){
+    return Session.get("question").url;
   };
   
   Meteor.startup(function(){
