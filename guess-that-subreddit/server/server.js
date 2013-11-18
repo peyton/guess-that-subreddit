@@ -1,24 +1,37 @@
 var Subreddits;
 var Submissions;
+var updateDbWithIndex = function(){
+  var i = 0;
+  Submissions.find().forEach(function(myDoc){
+    console.log(myDoc);
+    Submissions.update({_id:myDoc._id},{$set:{"num":i}});
+    i++;
+  });
+  i=0;
+  Subreddits.find().forEach(function(myDoc){
+    console.log(myDoc);
+    Subreddits.update({_id:myDoc._id},{$set:{"num":i}});
+    i++;
+  });
+};
 
   Meteor.startup(function () {
     // code to run on server at startup
     Subreddits = new Meteor.Collection("subreddits");
     Submissions = new Meteor.Collection("submissions");
-    /*var i = 0;
-    Submissions.find().forEach(function(myDoc){
-      console.log(myDoc);
-      Submissions.update({_id:myDoc._id},{$set:{"num":i}});
-      i++;
-    });*/
+
+    //UNCOMMENT IF THIS IS THE FIRST TIME RUNNING THE SERVER AFTER YOU
+    //HAVE JUST MADE THE BASIC DB
+    //updateDbWithIndex();
+    //RECOMMENT AFTER CONSOLE STOPS LOGGING 
+
+
     Meteor.publish("subreddits", function(){
       var x= Subreddits.find();
       return x;
     });
   
-    //console.log("meowmeow");
-    //console.log(Subreddits.findOne({name:"t5_2qh0u"}));
-    //console.log("barkbark");
+
 
     Meteor.publish("submissions", function(){
       //return Submissions.find();
