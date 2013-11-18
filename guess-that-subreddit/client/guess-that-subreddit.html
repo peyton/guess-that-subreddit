@@ -8,11 +8,9 @@
 </body>
 
 <template name="page">
-  <!--{{play}}
-  <input type="button" value="play"/>-->
   <div class="row">
     <div class="col-md-12">
-      <h1>Guess that Subreddit</h1>
+     <h1 class="header">Guess That Subreddit</h1> 
       {{> mainFrame}}
     </div>
   </div>
@@ -55,16 +53,20 @@
 </template>
 
 <template name = "mainFrame">
-  <div class="mainFrame">
+<div class="mainFrame">
+  <div class="row">
     {{> questionData_template}}
+  </div>
+  <div class="row" id="question_template">
     {{> question_template}}
   </div>
+</div>
 </template>
 
 <template name ="questionData_template">
 <div class="questionData row">
   <span id="thumb">
-
+    <!--Thumb is dynamically inserted here-->
   </span>
   <span>
     {{questionData}}
@@ -73,21 +75,23 @@
 </template>
 
 <template name="question_template">
-  <div class="question">
+<div class="question">
+  <h4>
     {{question}}
-    <div class="answers">
-      <a href="#" role="button" class="btn btn-default" id="option1" value="{{option1}}">
-        {{option1}}
-      </a>
-      <a href="#" role="button" class="btn btn-default" id="option2" value="{{option2}}">
-        {{option2}}
-      </a>
-      <a href="#" role="button" class="btn btn-default" id="option3" value="{{option3}}">
-        {{option3}}
-      </a>
-      <a href="#" role="button" class="btn btn-default" id="option4" value="{{option4}}">
-        {{option4}}
-      </a>
-    </div>
-   </div>
+  </h4>
+  <div class="answers">
+    <a href="#" role="button" class="btn btn-default" id="option1" value="{{option1}}">
+      {{option1}}
+    </a>
+    <a href="#" role="button" class="btn btn-default" id="option2" value="{{option2}}">
+      {{option2}}
+    </a>
+    <a href="#" role="button" class="btn btn-default" id="option3" value="{{option3}}">
+      {{option3}}
+    </a>
+    <a href="#" role="button" class="btn btn-default" id="option4" value="{{option4}}">
+      {{option4}}
+    </a>
+  </div>
+</div>
 </template>
