@@ -16,7 +16,6 @@ if(Meteor.isClient){
   Session.setDefault("question",{});
   Session.setDefault("correctAnswer", "null");
   var answersArr=[];
-  var correctAnswer="";
   var flag=false;
 
 
@@ -64,14 +63,15 @@ if(Meteor.isClient){
   };
 
   var indicateCorrect = function(correct, userAnswer){
-    console.log(correctAnswer);
+    var cA = ".btn:contains('"+Session.get("correctAnswer")+"')";
+    console.log(cA);
     $(".answers").children().addClass("disabled");
     if(correct){
-      $(correctAnswer).removeClass("btn-default");
-      $(correctAnswer).addClass("btn-success");
+      $(cA).removeClass("btn-default");
+      $(cA).addClass("btn-success");
     } else {
-      $(correctAnswer).removeClass("btn-default");
-      $(correctAnswer).addClass("btn-success");
+      $(cA).removeClass("btn-default");
+      $(cA).addClass("btn-success");
       $(userAnswer).removeClass("btn-default");
       $(userAnswer).addClass("btn-danger");
     }
@@ -81,14 +81,15 @@ if(Meteor.isClient){
     //get next question and replace questoin data with it
     //reset buttons with new data
     setTimeout(function(){
-        $(".answers").children().removeClass("btn-success btn-danger disabled");
-        $(".answers").children().addClass("btn-default");
-      },500);
-    //get new question
-    generateQuestion();
-        
-    //generate new answers
-    generateAnswersArr();
+      $(".answers").children().removeClass("btn-success btn-danger disabled");
+      $(".answers").children().addClass("btn-default");
+      //get new question
+      generateQuestion();
+
+      //generate new answers
+      generateAnswersArr();
+    },1000);
+
   };
 
   var handleClick = function(i){
@@ -100,6 +101,7 @@ if(Meteor.isClient){
     console.log(userAnswer);
     //evaluate question
     var correct = evaluateQuestion(userAnswer);
+    console.log("correct:"+ correct);
     //give points based on correct or incorrect answer
     Session.set("totalQuestions",Session.get("totalQuestions")+1);
     if(correct){
@@ -177,9 +179,16 @@ if(Meteor.isClient){
   Template.questionData_template.questionData = function() {
     //grab question and display it
     //console.log(Subreddits.find().fetch());
-
+    console.log(Session.get("question").thumbnail);
+    //if(Session.get("question").thumbnail !== "" ||
+      // Session.get("question").thumbnail !== "self"){
+     $("<img src='"+Session.get("question").thumbnail+"' width='70' height='52' alt>").load(function(){
+        $(this).appendTo("#thumb");
+     });
+  //}
     return Session.get("question").title;
   };
+  
 
   Template.navigators.sub_url = function(){
     return Session.get("sub_url");
