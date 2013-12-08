@@ -1,0 +1,40 @@
+/* CSS declarations go here */
+.header {
+  text-align: center;
+  font-family: verdana, arial, helvetica, sans-serif;
+  /*background-color: #cee3f8;
+  background-image: url('reddit-logo.png');
+  background-size: 40px 40px;
+  background-repeat: no-repeat;
+  width: 40px;
+  height: 40px;
+  display: inline-block;*/
+}
+
+
+h3, h4{
+  text-align: center;
+  font-family: verdana, arial, helvetica, sans-serif;
+}
+
+.mainFrame {
+  margin-top: 10%;
+  font-family: verdana, arial, helvetica, sans-serif;
+  text-align: center;
+}
+
+.details {
+  margin-top: 10%;
+  font-family: verdana, arial, helvetica, sans-serif;
+  text-align: center;
+}
+
+.questionData {
+  background-color: #F0F3FC;
+  display: block;
+  font-family: verdana, arial, helvetica, sans-serif;
+  font-style: normal;
+  width: 50%;
+  margin: 0 auto;
+}
+

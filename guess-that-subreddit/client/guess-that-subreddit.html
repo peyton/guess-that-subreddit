@@ -1,0 +1,97 @@
+<head>
+  <title>Guess that Subreddit</title>
+  <link rel="stylesheet" href="dist/css/bootstrap.min.css">
+</head>
+
+<body>
+  {{> page}}
+</body>
+
+<template name="page">
+  <div class="row">
+    <div class="col-md-12">
+     <h1 class="header">Guess That Subreddit</h1> 
+      {{> mainFrame}}
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      {{> details}}
+    </div>
+  </div>
+</template>
+
+<template name="details">
+  <div class="details">
+    <!--contains navigators and score-->
+      {{> score}}
+      {{> navigators}}
+  </div>
+</template>
+
+<template name="score">
+  <div class="score">
+    <h3>Score:
+      {{player_score}} out of {{total_questions}}</h3>
+  </div>
+</template>
+
+
+<template name="navigators">
+  <div class="navs">
+    <span id="next">
+      <a href="{{sub_url}}" target="_blank" role="button" class="btn btn-info" id="go-to-subreddit">
+        Go To Subreddit
+      </a>
+      </span>
+      <span id="getpost">
+      <a href="{{post_url}}" target="_blank" role="button" class="btn btn-info" id="go-to-subreddit">
+        Go To Post
+      </a>
+    </span>
+  </div>
+</template>
+
+<template name = "mainFrame">
+<div class="mainFrame">
+  <div class="row">
+    {{> questionData_template}}
+  </div>
+  <div class="row" id="question_template">
+    {{> question_template}}
+  </div>
+</div>
+</template>
+
+<template name ="questionData_template">
+<div class="questionData row">
+  <span id="thumb">
+    <!--Thumb is dynamically inserted here-->
+  </span>
+  <span>
+    {{questionData}}
+  </span>
+</div>
+</template>
+
+<template name="question_template">
+<div class="question">
+  <h4>
+    {{question}}
+  </h4>
+  <div class="answers">
+    <a href="#" role="button" class="btn btn-default" id="option1" value="{{option1}}">
+      {{option1}}
+    </a>
+    <a href="#" role="button" class="btn btn-default" id="option2" value="{{option2}}">
+      {{option2}}
+    </a>
+    <a href="#" role="button" class="btn btn-default" id="option3" value="{{option3}}">
+      {{option3}}
+    </a>
+    <a href="#" role="button" class="btn btn-default" id="option4" value="{{option4}}">
+      {{option4}}
+    </a>
+  </div>
+</div>
+</template>
